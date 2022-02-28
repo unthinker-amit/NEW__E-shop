@@ -27,7 +27,7 @@
             <div class="col-lg-10">
                 <div class="row mx-auto">
                     {% for product in products %}
-                    <div class="card mx-auto mb-4" style="width: 18rem;">
+                    <div class="card mx-auto mb-4" id={{product.id}} style="width: 18rem;">
                         <img src="/media/{{product.image}}" class="card-img-top" alt="...">
                         <div class="card-body ">
                             <h5 class="card-title">{{product.name}}</h5>
@@ -37,14 +37,14 @@
                         </div>
                         <div class="card-footer row no-gutters">
                             {% if not product|is_in_cart:request.session.cart %}
-                            <form action="/" method="post" class="btn-block">
+                            <form action="/#{{product.id}}" method="post" class="btn-block">
                                 {% csrf_token %}
                                 <input hidden type='text' name='product' value="{{product.id}}">
                                 <input type="submit" class="btn btn-primary" value="Add to cart">
                             </form>
                             {% else %}
                             <div class="row no-gutters">
-                                <form action="/" class="col-2" method="post">
+                                <form action="/#{{product.id}}" class="col-2" method="post">
                                     {% csrf_token %}
                                     <input hidden type='text' name='product' value="{{product.id}}">
                                     <input hidden type='text' name='remove' value="True">
@@ -52,7 +52,7 @@
                                 </form>
                                
                                 <div class="text-center col">{{ product | cart_quantity:request.session.cart }} in cart</div>
-                                <form action="/" class="col-2" method="post">
+                                <form action="/#{{product.id}}" class="col-2" method="post">
                                     {% csrf_token %}
                                     <input hidden type='text' name='product' value="{{product.id}}">
                                     <input type="submit" value=' + ' class="col-2 btn btn-block btn-secondary">

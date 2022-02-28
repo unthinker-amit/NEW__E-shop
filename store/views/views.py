@@ -8,6 +8,9 @@ from django.http import HttpResponse
 
 class Index(View):
     def get(self,request):
+        cart=request.session.get('cart')
+        if not cart:
+            request.session['cart']={}
         products=Product.get_all_product()
         category=Category.get_all_category()
         category_id=request.GET.get('category')
@@ -22,7 +25,10 @@ class Index(View):
             quantity=cart.get(product)
             if quantity:
                 if remove:
-                    cart[product]=quantity-1
+                    if quantity==1:
+                        cart.pop(product)
+                    else:
+                        cart[product]=quantity-1
                 else:
                     cart[product]=quantity+1
             else:
