@@ -1,3 +1,3 @@
 from .login import Login
 from .signup import Sign_up
-from .views import index
+from .views import Index

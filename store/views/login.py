@@ -14,6 +14,8 @@ class Login(View):
         try:
             customer = Customer.objects.get(email=email)
             if customer:
+                request.session['customer_id']= customer.id
+                request.session['email']=customer.email
                 flag=check_password(password,customer.password)
                 if flag:
                     return redirect("homepage")
