@@ -14,7 +14,8 @@ class Login(View):
         try:
             customer = Customer.objects.get(email=email)
             if customer:
-                request.session['customer_id']= customer.id
+                request.session['customer']= customer.id
+                request.session['name']= customer.first_name
                 request.session['email']=customer.email
                 flag=check_password(password,customer.password)
                 if flag:
@@ -22,3 +23,8 @@ class Login(View):
         except:
             return render(request,'login.html',{'error':'Email or Password is invalid','values':{'email':email}})
         return render(request,'login.html',{'error':'Email or Password is invalid','values':{'email':email}})
+
+
+def logout(request):
+    request.session.clear()
+    return redirect('login')
