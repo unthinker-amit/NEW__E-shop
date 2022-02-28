@@ -1,4 +1,5 @@
 from atexit import register
+from math import prod
 from operator import imod
 from django import template
 
@@ -22,3 +23,18 @@ def cart_quantity(product,cart):
         if int(id) == product.id:
             return cart.get(id)
     return 0
+
+
+
+@register.filter(name='price_total')
+def price_total(product,cart):
+    return product.price * cart_quantity(product,cart)
+
+
+
+@register.filter(name='price_cart_total')
+def price_cart_total(product,cart):
+    sum=0
+    for p in product:
+        sum+= price_total(p,cart)
+    return sum

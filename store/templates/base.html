@@ -50,15 +50,15 @@
             <p class="nav-link">Hello !! {{request.session.name}}</p>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/cart">Cart</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/orders">Orders</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Log-out</a>
           </li>
           {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Cart</a>
+          </li>
           <li class="navbar-nav my-2 my-lg-0">
             <a class="nav-link" href="/sign_up/">Sign-up</a>
           </li>

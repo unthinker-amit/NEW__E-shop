@@ -19,3 +19,7 @@ class Product(models.Model):
     @staticmethod
     def get_all_product_by_category_id(category_id):
         return Product.objects.filter(category_id=category_id)
+    
+    @staticmethod
+    def get_products_by_ids(ids):
+        return Product.objects.filter(id__in = ids)

@@ -1,3 +1,4 @@
 from .login import Login
 from .signup import Sign_up
-from .views import Index
+from .home import Index
+from .cart import Cart
