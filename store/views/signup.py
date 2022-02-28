@@ -1,24 +1,10 @@
-import email
-from itertools import product
-from unicodedata import category
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from .models.product_models import Product
-from .models.category import Category
-from .models.customer import Customer
+from store.models.customer import Customer
 from django.views import View
-from django.contrib.auth.hashers import make_password,check_password
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
-def index(request):
-    products=Product.get_all_product()
-    category=Category.get_all_category()
-    category_id=request.GET.get('category')
-    if category_id:
-        products=Product.get_all_product_by_category_id(category_id)
-    return render(request,'index.html',{'products':products,"categories":category})
-
-class sign_up(View):
+class Sign_up(View):
     def get(self,request):
         return render(request,'sign_up.html')
     def post(self,request):
@@ -86,39 +72,3 @@ class sign_up(View):
             error_message = 'Email Address Already Registered..'
         # saving
         return error_message
-
-class login(View):
-    def get(self,request):
-        return render(request,'login.html')
-    
-    def post(self,request):
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        try:
-            customer = Customer.objects.get(email=email)
-            if customer:
-                flag=check_password(password,customer.password)
-                if flag:
-                    return redirect("homepage")
-        except:
-            return render(request,'login.html',{'error':'Email or Password is invalid','values':{'email':email}})
-        return HttpResponse(customer)
-
-        
-
-# def sign_up(request):
-#     if request.method=='GET': 
-#         return render(request,'sign_up.html')
-#     if request.method=="POST":
-#         first_name=request.POST.get('first_name')
-#         last_name=request.POST.get('last_name')
-#         phone=request.POST.get('phone')
-#         email=request.POST.get('email')
-#         password=request.POST.get('password')
-#         customer=Customer(first_name=first_name,
-#         last_name=last_name,
-#         phone=phone,
-#         email=email,
-#         password=password)
-#         customer.save()
-#         return HttpResponse("sign-up success")
