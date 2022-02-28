@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load cart %}
+{% load custom_filter %}
 
 
 <!-- all products -->
@@ -31,8 +32,7 @@
                         <img src="/media/{{product.image}}" class="card-img-top" alt="...">
                         <div class="card-body ">
                             <h5 class="card-title">{{product.name}}</h5>
-                            <p class="card-text"><b>{{product.price}}</b></p>
-                            {{ product | is_in_cart:request.session.cart }}
+                            <p class="card-text"><b>{{product.price|rupee}}</b></p>
 
                         </div>
                         <div class="card-footer row no-gutters">

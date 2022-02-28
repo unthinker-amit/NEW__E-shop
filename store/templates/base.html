@@ -45,6 +45,9 @@
           </li>
         </ul>
         <ul class="navbar-nav my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Cart</a>
+          </li>
           {% if request.session.customer %}
           <li class="nav-item">
             <p class="nav-link">Hello !! {{request.session.name}}</p>
@@ -56,9 +59,7 @@
             <a class="nav-link" href="/logout">Log-out</a>
           </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="/cart">Cart</a>
-          </li>
+          
           <li class="navbar-nav my-2 my-lg-0">
             <a class="nav-link" href="/sign_up/">Sign-up</a>
           </li>
