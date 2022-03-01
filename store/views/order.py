@@ -3,7 +3,7 @@ from django.shortcuts import redirect,render
 from store.models.product_models import Product
 from store.models.order import Order
 
-from store.models.customer import Customer
+from django.utils.decorators import method_decorator
 
 
 

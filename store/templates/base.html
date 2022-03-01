@@ -46,7 +46,9 @@
         </ul>
         <ul class="navbar-nav my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/cart">Cart</a>
+            <a class="nav-link" href="/cart">Cart
+              <span style="background-color: blue;" class=" badge-info">{{request.session.cart.keys|length}}</span>
+            </a>
           </li>
           {% if request.session.customer %}
           <li class="nav-item">
@@ -61,11 +63,11 @@
           {% else %}
           
           <li class="navbar-nav my-2 my-lg-0">
-            <a class="nav-link" href="/sign_up/">Sign-up</a>
+            <a class="nav-link" href="/sign_up">Sign-up</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/login/">Login</a>
+            <a class="nav-link" href="/login">Login</a>
           </li>
           {% endif %}
 
