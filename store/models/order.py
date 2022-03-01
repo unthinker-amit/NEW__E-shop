@@ -12,4 +12,9 @@ class Order(models.Model):
     date=models.DateField(default=datetime.datetime.today)
     address=models.CharField(max_length=100,default='')
     phone=models.CharField(max_length=12,default='')
+    status=models.BooleanField(default=False)
 
+
+    @staticmethod
+    def get_order_by_customer(customer_id):
+        return Order.objects.filter(customer=customer_id).order_by('-date')
