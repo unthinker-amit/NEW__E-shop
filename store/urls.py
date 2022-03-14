@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index,Sign_up,Login,Cart,Checkout,Orders
+from .views import Index,Sign_up,Login,Cart,Checkout,Orders,app_product
 from .views.login import logout
 from django.conf.urls.static import static
 from django.conf import settings
@@ -16,6 +16,8 @@ urlpatterns = [
     path('cart/',Cart.as_view(),name='cart'),
     path('checkout/',Checkout.as_view(),name='checkout'),
     path('orders/',auth_middleware(Orders.as_view()),name='orders'),
+    path('add_product/',app_product.as_view(),name='add_product'),
+
 
 
 

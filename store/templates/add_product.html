@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container mt-4">
+    <div class="p-4 m-4 ">
+        <div class="col-lg-4 mt-4 mb-4 mx-auto border rounded p-4">
+            <div class="text-center col">
+                <h3 class="alert alert-light border rounded">Add a Product</h3>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {%csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{error}}</strong>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="name" id="" class="form-control form-control-sm" value={{values.name}}>
+                </div>
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="text" name="price" id="" class="form-control form-control-sm" value={{values.price}}>
+                </div>
+                <div class="form-group">
+                    <label for="">category</label>
+
+
+                    <select name="category" id="" class="form-control form-control-sm" placeholder="************" >
+                        {% for category in categories %}
+                        <option >{{category}}</option>
+                        {% endfor %}
+                        </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="Text" name="description" id="" class="form-control form-control-sm"
+                        value={{values.description}}>
+                </div>
+                <div class="form-group">
+                    <label>Add Image</label>
+                    <input type="file" name="image" accept="image/*" class="form-control form-control-sm">
+                </div>
+
+
+
+                <div class="form-group pt-2">
+                    <input class="btn btn-sm btn-info" type="submit" value="Add the product">
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
