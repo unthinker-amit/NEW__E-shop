@@ -11,7 +11,8 @@
             </div>
             <form action="" method="POST" enctype="multipart/form-data">
                 {%csrf_token %}
-                {% if error %}
+                {{form.as_p}}
+                <!-- {% if error %}
                 <div class="alert alert-danger" role="alert">
                     <strong>{{error}}</strong>
                 </div>
@@ -43,7 +44,7 @@
                 <div class="form-group">
                     <label>Add Image</label>
                     <input type="file" name="image" accept="image/*" class="form-control form-control-sm">
-                </div>
+                </div> -->
 
 
 

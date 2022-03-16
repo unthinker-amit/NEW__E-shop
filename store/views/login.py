@@ -43,7 +43,7 @@ class Login(View):
 
 
 def logout(request):
-    #cart(request)
+    # cart(request)
     request.session.clear()
     return redirect("login")
 
