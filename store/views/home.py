@@ -11,14 +11,18 @@ from django.http import HttpResponse
 
 class Index(View):
     def get(self, request):
+        orderBy='date'
         cart = request.session.get("cart")
         if not cart:
             request.session["cart"] = {}
-        products = Product.get_all_product()
+        products = Product.get_all_product().order_by(orderBy)
         category = Category.get_all_category()
         category_id = request.GET.get("category")
+        order = request.GET.get("orderBy")
+        if not order:
+            order='date'
         if category_id:
-            products = Product.get_all_product_by_category_id(category_id)
+            products = Product.get_all_product_by_category_id(category_id).order_by(order)
         return render(
             request, "index.html", {"products": products, "categories": category}
         )

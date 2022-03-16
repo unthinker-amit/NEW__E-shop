@@ -17,10 +17,16 @@
                     <a href="/" class="list-group-item list-group-item-action">All Products</a>
                     {% for category in categories %}
                     <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category}}</a>
+                   <ul>
+                    <a href="/?category={{category.id}}&orderBy=-price" class="list-group-item list-group-item-action btn-sm">Sort by Price - high to low</a>
+                    <a href="/?category={{category.id}}&orderBy=price" class="list-group-item list-group-item-action btn-sm">Sort by Price - low to high</a>
+                    <a href="/?category={{category.id}}&orderBy=-date" class="list-group-item list-group-item-action btn-sm">Sort by Date - latest</a>
+                    <a href="/?category={{category.id}}&orderBy=date" class="list-group-item list-group-item-action btn-sm">Sort by Date - earliest</a>
+
+                   </ul>
                     {% endfor %}
                 </div>
             </div>
-
 
 
 

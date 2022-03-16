@@ -10,7 +10,6 @@ class Order(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.IntegerField()
     date = models.DateField(default=datetime.datetime.today)
-    address = models.CharField(max_length=100, default="")
     phone = models.CharField(max_length=12, default="")
     status = models.BooleanField(default=False)
 
