@@ -14,24 +14,35 @@
             <!-- filter -->
             <div class="col-lg-2 mx-auto">
                 <div class="list-group ">
-                    <a href="/" class="list-group-item list-group-item-action">All Products</a>
+                    <a href="/?all=all" class="list-group-item list-group-item-action">All Products</a>
                     {% for category in categories %}
                     <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category}}</a>
-                   <ul>
-                    <a href="/?category={{category.id}}&orderBy=-price" class="list-group-item list-group-item-action btn-sm">Sort by Price - high to low</a>
-                    <a href="/?category={{category.id}}&orderBy=price" class="list-group-item list-group-item-action btn-sm">Sort by Price - low to high</a>
-                    <a href="/?category={{category.id}}&orderBy=-date" class="list-group-item list-group-item-action btn-sm">Sort by Date - latest</a>
-                    <a href="/?category={{category.id}}&orderBy=date" class="list-group-item list-group-item-action btn-sm">Sort by Date - earliest</a>
-
-                   </ul>
+                    
                     {% endfor %}
                 </div>
             </div>
 
 
+            <div class="col-lg-1 mx-auto">
+                <div class="list-group ">
+                    <p class="list-group-item list-group-item-action">Sort By</p>
+
+                        <a href="/?orderBy=-price" class="list-group-item list-group-item-action btn-sm">Price -
+                            high to low</a>
+                        <a href="/?orderBy=price" class="list-group-item list-group-item-action btn-sm">Price -
+                            low to high</a>
+                        <a href="/?orderBy=-date" class="list-group-item list-group-item-action btn-sm">Date -
+                            latest</a>
+                        <a href="/?orderBy=date" class="list-group-item list-group-item-action btn-sm">Date -
+                            earliest</a>
+
+
+                </div>
+            </div>
+
 
             <!-- all-Products -->
-            <div class="col-lg-10">
+            <div class="col-lg-9">
                 <div class="row mx-auto">
                     {% for product in products %}
                     <div class="card mx-auto mb-4" id={{product.id}} style="width: 18rem;">
@@ -56,15 +67,16 @@
                                     <input hidden type='text' name='remove' value="True">
                                     <input type="submit" value=' - ' class="col-2 btn btn-block btn-secondary">
                                 </form>
-                               
-                                <div class="text-center col">{{ product | cart_quantity:request.session.cart }} in cart</div>
+
+                                <div class="text-center col">{{ product | cart_quantity:request.session.cart }} in cart
+                                </div>
                                 <form action="/#{{product.id}}" class="col-2" method="post">
                                     {% csrf_token %}
                                     <input hidden type='text' name='product' value="{{product.id}}">
                                     <input type="submit" value=' + ' class="col-2 btn btn-block btn-secondary">
                                 </form>
                             </div>
-{% endif %}
+                            {% endif %}
 
                         </div>
                     </div>

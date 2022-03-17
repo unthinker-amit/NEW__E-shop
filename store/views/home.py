@@ -1,28 +1,29 @@
-from contextlib import redirect_stderr
-from importlib.metadata import requires
-from itertools import product
 from django.shortcuts import render, redirect
-from pkg_resources import Requirement
 from store.models.product_models import Product
 from store.models.category import Category
 from django.views import View
-from django.http import HttpResponse
 
 
 class Index(View):
     def get(self, request):
-        orderBy='date'
+        order = request.GET.get("orderBy")
+        if not order:
+            order = "date"
         cart = request.session.get("cart")
         if not cart:
             request.session["cart"] = {}
-        products = Product.get_all_product().order_by(orderBy)
+        products = Product.get_all_product().order_by(order)
         category = Category.get_all_category()
         category_id = request.GET.get("category")
-        order = request.GET.get("orderBy")
-        if not order:
-            order='date'
+        all = request.GET.get("all")
+        if all == "all":
+            request.session["cat_id"] = None
         if category_id:
-            products = Product.get_all_product_by_category_id(category_id).order_by(order)
+            request.session["cat_id"] = category_id
+
+        cat_id = request.session.get("cat_id")
+        if cat_id:
+            products = Product.get_all_product_by_category_id(cat_id).order_by(order)
         return render(
             request, "index.html", {"products": products, "categories": category}
         )
