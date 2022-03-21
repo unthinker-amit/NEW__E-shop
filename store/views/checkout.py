@@ -9,8 +9,8 @@ from store.models.customer import Customer
 class Checkout(View):
     def get(self, request):
         customer = request.session.get("customer")
-        customer_obj=Customer.objects.get(id=customer)
-        phone=customer_obj.phone
+        customer_obj = Customer.objects.get(id=customer)
+        phone = customer_obj.phone
         cart = request.session.get("cart")
         products = Product.get_products_by_ids(list(cart.keys()))
         for product in products:

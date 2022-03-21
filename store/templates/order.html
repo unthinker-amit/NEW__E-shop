@@ -6,72 +6,82 @@
 {% load custom_filter %}
 
 <div class="container">
-   <div class="border p-4 m-4">
-       <p class="display-4">Your Orders</p>
-       <table class="table">
-           <thead>
-               <tr>
-                   <th>S.no</th>
-                   <th>Image</th>
-                   <th>Product</th>
-                   <th>Date</th>
-                   <th>Price</th>
-                   <th>Quantity</th>
-                   <th>Total</th>
-                   <th>Status</th>
-               </tr>
-           </thead>
-           <tbody>
-               {% for order in orders %}
-               <tr>
-                   <td>{{forloop.counter}}</td>
-                   <td><img style="height: 80px;" class="rounded-circle"src="{{order.product.image.url}}"></td>
-                   <td>{{order.product.name}}</td>
-                   <td>{{order.date}}</td>
-                   <td>{{order.price|rupee}}</td>
-                   <td>{{order.quantity}}</td>
-                   <td>{{order.quantity|multiply:order.price|rupee}}</td>
-                   {% if order.status %}
-                   <td><small class="badge-success">Completed</small></td>
-                   {% else %}
-                   <td><small class="badge-warning">Pending</small></td>
-                   {% endif %}
-                   <td><a href="/orders/?order_id={{order.id}}" class="float-right btn btn-outline-info border rounded " >Delete</a></td>
-                   {% endfor %}
-               </tr>
-               
-           </tbody>
-          
-       </table>
-   </div>
-</div>
+  <div class="border p-4 m-4">
+    <p class="display-4">Your Orders</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>S.no</th>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td><img style="height: 80px;" class="rounded-circle" src="{{order.product.image.url}}"></td>
+          <td>{{order.product.name}}</td>
+          <td>{{order.date}}</td>
+          <td>{{order.price|rupee}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.quantity|multiply:order.price|rupee}}</td>
+          {% if order.status %}
+          <td><small class="badge-success">Completed</small></td>
+          {% else %}
+          <td><small class="badge-warning">Pending</small></td>
+          {% endif %}
+          <td><a href="/orders/?order_id={{order_id}}" data-toggle="modal" data-target="#exampleModal"
+              class="float-right btn btn-outline-info border rounded ">Delete</a></td>
 
 
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure, you want to delete it!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="m-2 p-3">
-          <form action="/orders/?order_id={{order.id}}" >
-            <button type="button" class="btn btn-primary pt-1 float-right" data-dismiss="modal" aria-label="Close">No</button>
-            
-            <button type="submit" class="btn btn-primary pt-1 float-right" value="checkout">Delete</button>
-          </form>
-        </div>
-      </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Are you sure, you want to delete it!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="m-2 p-3">
+                    <form action="/orders/" method="post">
+                      {% csrf_token %}
+                      <button type="button" class="btn btn-primary pt-1 float-right" data-dismiss="modal"
+                        aria-label="Close">No</button>
+                      <button type="submit" name="order_id"value="{{order.id}}" class="btn btn-primary pt-1 float-right" >Yes! Delete it</button>
+                    </form>
+                  </div>
+                </div>
 
-    </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+          {% endfor %}
+        </tr>
+        <!-- /orders/?order_id={{order.id}} -->
+      </tbody>
+
+    </table>
   </div>
 </div>
 
@@ -89,10 +99,6 @@
 
 
 
-
-
-
-  
 
 
 {% endblock %}

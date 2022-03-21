@@ -14,4 +14,10 @@ class Orders(View):
         orders = Order.get_order_by_customer(customer)
         return render(request, "order.html", {"orders": orders})
 
-        
+    def post(self,request):
+        order_id= request.POST.get("order_id")
+        print("order ",order_id)
+        if order_id:
+            Order.objects.get(id=order_id).delete()
+            return redirect("orders")
+        return redirect("orders")
